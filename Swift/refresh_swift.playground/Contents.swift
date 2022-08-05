@@ -930,4 +930,91 @@ extension String {
 }
 
 var string = "0"
-string.convertToInt()
+var val = string.convertToInt()
+print(val!)
+
+// 열거형 (enumeration)
+// 연관성이 잇는 데이터 값을 모아놓은 것
+// 같은 타입의 데이터만 같은 열거형 안에 모을 수 있다.
+
+enum CompassPoint : String {
+    case north = "북" // 원시값 (rawValue)
+    case south = "남"
+    case east = "동"
+    case west = "서"
+    // case north south east west 로 표현도 가능
+}
+
+var direction = CompassPoint.east
+direction = .west
+
+switch direction {
+    case .south:
+        print(direction.rawValue)
+    case .west:
+        print(direction.rawValue)
+    case .north:
+        print(direction.rawValue)
+    case .east:
+        print(direction.rawValue)
+}
+
+// enum 인스턴스를 통해 원시값을 가지는 항목 추출
+let direction2 = CompassPoint(rawValue: "남")
+
+// 연관값을 갖는 열거형 선언하기
+enum PhoneError {
+    case unKnown
+    case batteryLow (String) // 항목이 연관값을 String 형으로 갖게 하기.
+}
+
+let error = PhoneError.batteryLow("배터리가 곧 방전됩니다.")
+
+//switch문을 통한 연관값 추출
+
+switch error {
+case .batteryLow(let message):
+    print(message)
+    
+case .unKnown:
+    print("알수 없는 에러입니다.")
+}
+
+// 옵셔널 체이닝
+// 옵셔널에 속해있는 nil값일지도 모르는 프로퍼티, 메소드, 서브스크립션 등을 가져오거나, 호출할 때 사용할 수 있는 일련의 과정.
+// 옵셔널이 값이 있을 경우, 값을 반환하고, 값이 없을 경우에는 nil을 반환한다.
+
+struct Developer{
+    let name :String
+}
+
+struct Company{
+    let name:String
+    var developer : Developer?
+}
+var developer = Developer(name : "Jade")
+var newCompany = Company(name : "Gunter", developer:developer)
+print(newCompany.developer) // Optional(Developer(name:Jade))
+//print(newCompany.developer.name) // Error : Company 타입의 developer 인스턴스가 Developer? 옵셔널 타입이기 때문에, 이를 먼저 언래핑 해줘야한다.
+
+// 옵셔널 바인딩 뿐만 아니라, 옵셔널 체이닝을 통해서도 옵셔널에 접근 가능
+// 옵셔널 체이닝 -> 옵셔널 값이라는 것을 알려주기
+print(newCompany.developer?.name)
+// 강제 언래핑
+print(newCompany.developer!.name)
+
+//try - catch
+    // 프로그램 내에서 에러가 발생했을때 이를 처리하는 과정
+    // 발생(throwing) - 감지(catching) - 전파(propagating) - 조작(manipulating)
+
+enum NewPhoneError : Error {
+    // Error 라는 프로토콜을 채택한다.
+    case unKnown
+    case batteryLow(batteryLevel: Int)
+    
+} // 오류가 발생할때, 프로그램이 실행될 수 없다.
+
+// throw 라는 키워드는 에러를 발생시킬때 사용한다.
+
+throw NewPhoneError.batteryLow(batteryLevel:20) // 던져진 오류
+
