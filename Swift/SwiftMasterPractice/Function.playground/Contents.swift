@@ -156,3 +156,29 @@ print(1,2,3,4,5, separator: " ")
 
 // (참고) print 함수의 separator의 default 값은 "", terminator의 default 값은 "\n"이다.
 
+
+// 리턴(return) 에 대한 이해
+
+/*===========================================
+1) 리턴타입(아웃풋)이 있는 경우 :
+   리턴 키워드 다음의 표현식을 평가한 후, 그 결과를 반환하며 함수 실행을 중지하고, 함수를 벗어나, 호출된 곳으로 돌아간다
+2) 리턴타입 (아웃풋이 없는 경우) : 함수 실행을 중지하고, 함수를 벗어나 호출된 곳으로 돌아간다.
+ 
+===========================================*/
+
+func printIfOdd (_ number : Int) {
+    if number % 2 == 0 {
+        print("even!!")
+        return // 함수 종료
+    }
+    else{
+        print("odd!")
+    }
+    print("이제서야 함수 종료 하지롱롱")
+} // 위처럼, 함수를 특정 구간에서 바로 종료할 때 리턴을 사용하면 됨.
+
+printIfOdd(2)
+printIfOdd(3)
+
+let str : String = " "
+let opt = Int(str) // -> Int?
