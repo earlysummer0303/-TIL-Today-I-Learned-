@@ -62,7 +62,7 @@ print(b) // Optional(5)
 //1) 강제 추출 (Forced Unwrapping)
 
 //nil이 아닌 값이 있다는 것을 확신하고 강제로 값을 추출 -> 까놓고 봤는데 값이 없으면 에러남
-
+// ! : 강제 추출 연산자
 var fu : Int? = 5
 
 print(fu!)
@@ -115,5 +115,44 @@ guardLetBind(opt2)
 // Coalesce ~ '더 큰 덩어리로 합치다' 라는 뜻
 // 옵셔널 표현식 뒤에 기본값을 제시해서, 옵셔널이 nil 값일 가능성을 없애는것 (즉 옵셔널 자체의 가능성을 없앰)
 
-var oneOpt :String? = "홍길동"
+var oneOpt :String? = nil
+
+var nilOpt = oneOpt ?? "내가디폴트다" // 이때, nilOpt의 경우, nil일 가능성이 전혀 없으면서도, 옵셔널형식으로 명시적 선언이 되어있지 않기 때문에 String 타입이다.
+
+print(nilOpt) // oneOpt = nil 일 경우 -> 내가 디폴트다
+
+// 닐 코어래싱은 삼항연산자와 비슷하다 -> 삼항연산으로 같은 로직을 구현할 수 있다. (그냥 참고용)
+
+var justOpt : String? = nil
+var coalOpt = justOpt != nil ? justOpt! : "아이엠 디폴트"
+
+// coalOpt라는 변수에는, justOpt값이 nil이 아닐때 justOpt! 값이, nil일때 디폴트 문자열 값이 들어간다.
+
+
+
+// 함수와 옵셔널 타입
+
+// 많은 애플 내장 함수들이 옵셔널 타입의 파라미터를 가진다.
+
+// 옵셔널 타입의 파라미터를 받는 함수가 있을때,
+
+func doSomePrint(with label : String, name : String? = nil) {
+    // 옵셔널 파라미터는 nil 로 초기화 하는 것이 일반적이다
+    // 이유 ~ 굳이 값을 넣고 싶지 않을 때, 함수 호출시 해당 아규먼트까지 명시해주는것이 귀찮기 때문
+    print("\(label): \(name ?? "없음")")
+}
+
+// 아래 두가지 방식으로 모두 실행 가능
+doSomePrint(with : "지우")
+doSomePrint(with : "지우", name : "Swimmer")
+
+
+
+
+
+
+// 옵셔널 채이닝 (Optional Chaining)
+
+// (Class, Struct와 관련된 내용) ~ 클래스, 구조체 정리 하고 다시 정리하기.
+
 
