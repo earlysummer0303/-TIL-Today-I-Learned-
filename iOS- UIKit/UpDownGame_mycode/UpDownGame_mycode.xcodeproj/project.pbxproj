@@ -1,0 +1,611 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CD3D8B3528E89AE100D3712B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D8B3428E89AE100D3712B /* AppDelegate.swift */; };
+		CD3D8B3728E89AE100D3712B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D8B3628E89AE100D3712B /* SceneDelegate.swift */; };
+		CD3D8B3928E89AE100D3712B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D8B3828E89AE100D3712B /* ViewController.swift */; };
+		CD3D8B3C28E89AE100D3712B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD3D8B3A28E89AE100D3712B /* Main.storyboard */; };
+		CD3D8B3E28E89AE300D3712B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD3D8B3D28E89AE300D3712B /* Assets.xcassets */; };
+		CD3D8B4128E89AE300D3712B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD3D8B3F28E89AE300D3712B /* LaunchScreen.storyboard */; };
+		CD3D8B4C28E89AE300D3712B /* UpDownGame_mycodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D8B4B28E89AE300D3712B /* UpDownGame_mycodeTests.swift */; };
+		CD3D8B5628E89AE300D3712B /* UpDownGame_mycodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D8B5528E89AE300D3712B /* UpDownGame_mycodeUITests.swift */; };
+		CD3D8B5828E89AE300D3712B /* UpDownGame_mycodeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D8B5728E89AE300D3712B /* UpDownGame_mycodeUITestsLaunchTests.swift */; };
+		CD3D8B6528E8A5EA00D3712B /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3D8B6428E8A5EA00D3712B /* Numbers.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CD3D8B4828E89AE300D3712B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD3D8B2928E89AE100D3712B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD3D8B3028E89AE100D3712B;
+			remoteInfo = UpDownGame_mycode;
+		};
+		CD3D8B5228E89AE300D3712B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD3D8B2928E89AE100D3712B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD3D8B3028E89AE100D3712B;
+			remoteInfo = UpDownGame_mycode;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CD3D8B3128E89AE100D3712B /* UpDownGame_mycode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpDownGame_mycode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD3D8B3428E89AE100D3712B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CD3D8B3628E89AE100D3712B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		CD3D8B3828E89AE100D3712B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CD3D8B3B28E89AE100D3712B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CD3D8B3D28E89AE300D3712B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD3D8B4028E89AE300D3712B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CD3D8B4228E89AE300D3712B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD3D8B4728E89AE300D3712B /* UpDownGame_mycodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UpDownGame_mycodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD3D8B4B28E89AE300D3712B /* UpDownGame_mycodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpDownGame_mycodeTests.swift; sourceTree = "<group>"; };
+		CD3D8B5128E89AE300D3712B /* UpDownGame_mycodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UpDownGame_mycodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD3D8B5528E89AE300D3712B /* UpDownGame_mycodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpDownGame_mycodeUITests.swift; sourceTree = "<group>"; };
+		CD3D8B5728E89AE300D3712B /* UpDownGame_mycodeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpDownGame_mycodeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CD3D8B6428E8A5EA00D3712B /* Numbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CD3D8B2E28E89AE100D3712B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD3D8B4428E89AE300D3712B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD3D8B4E28E89AE300D3712B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CD3D8B2828E89AE100D3712B = {
+			isa = PBXGroup;
+			children = (
+				CD3D8B3328E89AE100D3712B /* UpDownGame_mycode */,
+				CD3D8B4A28E89AE300D3712B /* UpDownGame_mycodeTests */,
+				CD3D8B5428E89AE300D3712B /* UpDownGame_mycodeUITests */,
+				CD3D8B3228E89AE100D3712B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CD3D8B3228E89AE100D3712B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD3D8B3128E89AE100D3712B /* UpDownGame_mycode.app */,
+				CD3D8B4728E89AE300D3712B /* UpDownGame_mycodeTests.xctest */,
+				CD3D8B5128E89AE300D3712B /* UpDownGame_mycodeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CD3D8B3328E89AE100D3712B /* UpDownGame_mycode */ = {
+			isa = PBXGroup;
+			children = (
+				CD3D8B3428E89AE100D3712B /* AppDelegate.swift */,
+				CD3D8B3628E89AE100D3712B /* SceneDelegate.swift */,
+				CD3D8B3828E89AE100D3712B /* ViewController.swift */,
+				CD3D8B6428E8A5EA00D3712B /* Numbers.swift */,
+				CD3D8B3A28E89AE100D3712B /* Main.storyboard */,
+				CD3D8B3D28E89AE300D3712B /* Assets.xcassets */,
+				CD3D8B3F28E89AE300D3712B /* LaunchScreen.storyboard */,
+				CD3D8B4228E89AE300D3712B /* Info.plist */,
+			);
+			path = UpDownGame_mycode;
+			sourceTree = "<group>";
+		};
+		CD3D8B4A28E89AE300D3712B /* UpDownGame_mycodeTests */ = {
+			isa = PBXGroup;
+			children = (
+				CD3D8B4B28E89AE300D3712B /* UpDownGame_mycodeTests.swift */,
+			);
+			path = UpDownGame_mycodeTests;
+			sourceTree = "<group>";
+		};
+		CD3D8B5428E89AE300D3712B /* UpDownGame_mycodeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CD3D8B5528E89AE300D3712B /* UpDownGame_mycodeUITests.swift */,
+				CD3D8B5728E89AE300D3712B /* UpDownGame_mycodeUITestsLaunchTests.swift */,
+			);
+			path = UpDownGame_mycodeUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CD3D8B3028E89AE100D3712B /* UpDownGame_mycode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD3D8B5B28E89AE300D3712B /* Build configuration list for PBXNativeTarget "UpDownGame_mycode" */;
+			buildPhases = (
+				CD3D8B2D28E89AE100D3712B /* Sources */,
+				CD3D8B2E28E89AE100D3712B /* Frameworks */,
+				CD3D8B2F28E89AE100D3712B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UpDownGame_mycode;
+			productName = UpDownGame_mycode;
+			productReference = CD3D8B3128E89AE100D3712B /* UpDownGame_mycode.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CD3D8B4628E89AE300D3712B /* UpDownGame_mycodeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD3D8B5E28E89AE300D3712B /* Build configuration list for PBXNativeTarget "UpDownGame_mycodeTests" */;
+			buildPhases = (
+				CD3D8B4328E89AE300D3712B /* Sources */,
+				CD3D8B4428E89AE300D3712B /* Frameworks */,
+				CD3D8B4528E89AE300D3712B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD3D8B4928E89AE300D3712B /* PBXTargetDependency */,
+			);
+			name = UpDownGame_mycodeTests;
+			productName = UpDownGame_mycodeTests;
+			productReference = CD3D8B4728E89AE300D3712B /* UpDownGame_mycodeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CD3D8B5028E89AE300D3712B /* UpDownGame_mycodeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD3D8B6128E89AE300D3712B /* Build configuration list for PBXNativeTarget "UpDownGame_mycodeUITests" */;
+			buildPhases = (
+				CD3D8B4D28E89AE300D3712B /* Sources */,
+				CD3D8B4E28E89AE300D3712B /* Frameworks */,
+				CD3D8B4F28E89AE300D3712B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD3D8B5328E89AE300D3712B /* PBXTargetDependency */,
+			);
+			name = UpDownGame_mycodeUITests;
+			productName = UpDownGame_mycodeUITests;
+			productReference = CD3D8B5128E89AE300D3712B /* UpDownGame_mycodeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CD3D8B2928E89AE100D3712B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					CD3D8B3028E89AE100D3712B = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					CD3D8B4628E89AE300D3712B = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = CD3D8B3028E89AE100D3712B;
+					};
+					CD3D8B5028E89AE300D3712B = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = CD3D8B3028E89AE100D3712B;
+					};
+				};
+			};
+			buildConfigurationList = CD3D8B2C28E89AE100D3712B /* Build configuration list for PBXProject "UpDownGame_mycode" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CD3D8B2828E89AE100D3712B;
+			productRefGroup = CD3D8B3228E89AE100D3712B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CD3D8B3028E89AE100D3712B /* UpDownGame_mycode */,
+				CD3D8B4628E89AE300D3712B /* UpDownGame_mycodeTests */,
+				CD3D8B5028E89AE300D3712B /* UpDownGame_mycodeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CD3D8B2F28E89AE100D3712B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD3D8B4128E89AE300D3712B /* LaunchScreen.storyboard in Resources */,
+				CD3D8B3E28E89AE300D3712B /* Assets.xcassets in Resources */,
+				CD3D8B3C28E89AE100D3712B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD3D8B4528E89AE300D3712B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD3D8B4F28E89AE300D3712B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CD3D8B2D28E89AE100D3712B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD3D8B6528E8A5EA00D3712B /* Numbers.swift in Sources */,
+				CD3D8B3928E89AE100D3712B /* ViewController.swift in Sources */,
+				CD3D8B3528E89AE100D3712B /* AppDelegate.swift in Sources */,
+				CD3D8B3728E89AE100D3712B /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD3D8B4328E89AE300D3712B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD3D8B4C28E89AE300D3712B /* UpDownGame_mycodeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD3D8B4D28E89AE300D3712B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD3D8B5828E89AE300D3712B /* UpDownGame_mycodeUITestsLaunchTests.swift in Sources */,
+				CD3D8B5628E89AE300D3712B /* UpDownGame_mycodeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CD3D8B4928E89AE300D3712B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD3D8B3028E89AE100D3712B /* UpDownGame_mycode */;
+			targetProxy = CD3D8B4828E89AE300D3712B /* PBXContainerItemProxy */;
+		};
+		CD3D8B5328E89AE300D3712B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD3D8B3028E89AE100D3712B /* UpDownGame_mycode */;
+			targetProxy = CD3D8B5228E89AE300D3712B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CD3D8B3A28E89AE100D3712B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3D8B3B28E89AE100D3712B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CD3D8B3F28E89AE300D3712B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD3D8B4028E89AE300D3712B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CD3D8B5928E89AE300D3712B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CD3D8B5A28E89AE300D3712B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CD3D8B5C28E89AE300D3712B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G8XX337GMH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UpDownGame_mycode/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swimmer.UpDownGame-mycode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CD3D8B5D28E89AE300D3712B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G8XX337GMH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UpDownGame_mycode/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swimmer.UpDownGame-mycode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CD3D8B5F28E89AE300D3712B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G8XX337GMH;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swimmer.UpDownGame-mycodeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UpDownGame_mycode.app/UpDownGame_mycode";
+			};
+			name = Debug;
+		};
+		CD3D8B6028E89AE300D3712B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G8XX337GMH;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swimmer.UpDownGame-mycodeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UpDownGame_mycode.app/UpDownGame_mycode";
+			};
+			name = Release;
+		};
+		CD3D8B6228E89AE300D3712B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G8XX337GMH;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swimmer.UpDownGame-mycodeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = UpDownGame_mycode;
+			};
+			name = Debug;
+		};
+		CD3D8B6328E89AE300D3712B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G8XX337GMH;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swimmer.UpDownGame-mycodeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = UpDownGame_mycode;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CD3D8B2C28E89AE100D3712B /* Build configuration list for PBXProject "UpDownGame_mycode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD3D8B5928E89AE300D3712B /* Debug */,
+				CD3D8B5A28E89AE300D3712B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD3D8B5B28E89AE300D3712B /* Build configuration list for PBXNativeTarget "UpDownGame_mycode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD3D8B5C28E89AE300D3712B /* Debug */,
+				CD3D8B5D28E89AE300D3712B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD3D8B5E28E89AE300D3712B /* Build configuration list for PBXNativeTarget "UpDownGame_mycodeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD3D8B5F28E89AE300D3712B /* Debug */,
+				CD3D8B6028E89AE300D3712B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD3D8B6128E89AE300D3712B /* Build configuration list for PBXNativeTarget "UpDownGame_mycodeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD3D8B6228E89AE300D3712B /* Debug */,
+				CD3D8B6328E89AE300D3712B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CD3D8B2928E89AE100D3712B /* Project object */;
+}
