@@ -218,3 +218,392 @@ var newClassInstance2 = NewClass(age: 25)
 
 print(newClassInstance1 === newClassInstance2) // false
 print(newClassInstance1 !== newClassInstance2) // true
+
+
+
+
+// 프로퍼티와 메서드
+
+// 1) 저장 프로퍼티 : 값이 저장되는 일반적인 프로퍼티
+// 값이 저장되는 프로퍼티이기 때문에, 해당 프로퍼티의 데이터타입 만큼의 메모리 공간을 독립적으로 갖는다.
+
+/* 주의점)
+ - 각 인스턴스가 공통적으로 가지는, 고유의 데이터 저장공간을 의미.
+ - let(상수), var(변수)로 선언 가능 -> let으로 선언한 속성은 값 변경 불가.
+ - 반드시 기본값을 가지고 있거나, 생성자 메서드를 통해 값을 반드시 초기화 해야 한다.
+ */
+
+
+
+// 1-2) 지연 저장 속성
+
+// 지연 저장 속성은 처음부터 메모리 공간을 갖지 않는다.
+// 인스턴스를 생성한 뒤, 해당 속성에 접근하는 시점에 메모리 공간을 할당받고, 데이터가 저장되는 것.
+// 지연 저장 속성은 반드시 var로 선언하며, 선언시 기본값을 가져야 한다.
+// 어차피 인스턴스 생성시에 지연 저장 속성은 메모리 할당이 되지 않기 때문에, 생성자 함수에서 파라미터로 받지 않는다.
+
+struct Cosmetic {
+    var name : String // (일반적인) 저장 속성 name
+    var number : Int // 저장 속성 number
+    lazy var weight :Double = 0.0// 지연 저장 속성 number
+    init(name : String, number : Int){
+        self.name = name
+        self.number = number
+    }
+}
+
+var cushionFoundation = Cosmetic(name : "Cushion", number: 5) // 인스턴스를 생성할때, 지연저장 속성의 메모리공간은 할당하지 않음
+cushionFoundation.weight // 지연 저장 속성에 접근하면 비로소 지연저장속성의 메모리 공간이 할당되고, 데이터가 저장된다. (여기서는 기본값인 0.0로 초기화됨)
+
+
+
+// 지연 저장 속성에서 지연(lazy)의 의미
+/*
+ - 해당 '저장 속성'의 초기화를 지연시키는 것.
+ - 즉 인스턴스가 초기화되는 시점에, 해당 속성이 값을 가지고 초기화 되는것이 아닌, 해당 속성에 접근하는 순간, (해당 저장속성만) 개별적으로 초기화 되는것.
+ - 이 속성은 반드시 변화를 겪는 속성이므로 (메모리 공간이 없다가 생기는 속성이기 때문에) 반드시 var 로만 선언 가능, (lazy var 만 있고, lazy let은 없음)
+ */
+
+
+// 지연 저장 속성을 사용하는 이유
+
+/*
+ 1) 메모리공간을 많이 차지하지만, 필수적이지는 않은 데이터를 저장할 때 (ex) 이미지 등)
+ - 반드시 메모리에 다 올릴 필요가 없을 경우, 메모리의 낭비를 막기 위해 지연 저장속성으로 선언한다.
+ 
+ 2) 다른 속성들을 이용해야 할 때
+ - 지연저장속성을 사용하지 않는다면, 초기화 시점에 모든 속성들이 동시에 메모리 공간에 저장됨
+ - 따라서, 어떤 한가지 속성이 다른 속성에 접근할 수 없음.
+ - 하지만, 지연 저장 속성을 사용하면, 지연저장속성은, 먼저 초기화된 속성에 접근 가능.
+ */
+
+class AView {
+    var a: Int
+    lazy var view = UIImageView() // 1)
+    lazy var b : Int = { // 2)
+        return a * 10 // 클로져 표현식 -> a*10의 결과값을 리턴하는 함수(클로져)를 변수 b에 할당.
+    }()
+    init (a: Int){
+        self.a = a
+    }
+}
+// b는 a에 의존하는 속성임 -> 메모리 공간에 a가 있어야지 비로소 b 할당 가능한 구조 -> 지연저장속성으로 b를 선언해준다.
+
+var aaview = AView(a: 4)
+aaview.b // b의 메모리 할당. -> 4x10 값 저장.
+
+
+
+// 메서드의 메모리 구조 -> 교재 참조
+
+
+
+// 계산 속성 (Computed Property)
+// 항상 다른 저장속성에 의한 결과로 나오는 메서드의 역할을 대신할 수 있는 속성.
+
+// 계산속성 없이 저장속성, 메서드로만 이루어져 있다면?
+class NewPerson {
+    var birth : Int = 0 // 출생년도
+    
+    func getAge()->Int{ // Age를 계산해서 return 하는 함수
+        return 2021 - birth
+    }
+    
+    func setAge(_ age: Int){ //birth 값을 갱신하는 함수.
+        self.birth = 2021 - age
+    }
+}
+
+var newJiwoo = NewPerson()
+newJiwoo.setAge(24)
+newJiwoo.getAge()
+newJiwoo.birth
+
+// 계산 속성 도입 -> 'age'라는 계산속성을 만들어보자.
+
+class NewNewPerson{
+    var birth : Int = 0
+    var age : Int { // get-set은 세트!, set은 구현하지 않아도 됨(선택적)
+        get{ // getter 라고도 부름 (다른 언어에서)
+            // get 안에는 return 형이 존재.
+            return 2021 - birth
+        }
+        set(age){ // setter 라고도 부름.
+                // age 값을 할당 받을때, 이를 input으로 다른 변수 값을 조작.
+                 //  set 블록의 파라미터의 실질적인 의미는, 해당 인스턴스 속성에 접근하여 새롭게 저장한 값을 의미한다
+            self.birth = 2021 - age
+        }
+    }
+}
+
+var p1 = NewNewPerson()
+p1.birth = 2000
+p1.age // get ~ age 속성의 값을 직접 가져오는 경우 -> 21리턴
+
+p1.age = 20 // set ~ age 속성의 값을 직접 세팅해주는 경우. -> birth 속성값이 바뀜
+p1.birth
+
+// 그래서, 계산 속성을 사용하는 이유?
+/*
+ 3. 계산속성의 기능은 메서드로도 구현 가능하지만, 메서드로 구현하기 위해서는 get,set에 대한 함수를 독립적으로 각각 만들어 주어야 한다.
+ 그래서 실질적인 메서드 기능을 하는 변수인 '계산 속성'을 도입해, 이처럼 관련이 있는 기능들을 하나로 묶어준다\
+ 
+ 2. 보다 직관적인 의미 전달을 위해. - 주로 동사로 네이밍 되는 메서드를 사용하는 것 보다. 명확하게 의미 전달을 하기 위해 명사 형태인 속성을 사용.
+    ex) getAge라는 이름으로 함수를 만들기 보다, age 라는 이름으로 속성을 만들고, 그 안에 get, set 기능을 만드는 것이 직관적.
+ */
+
+// 계산 속성은 항상 값을 재계산 하기 때문에, 반드시 var 키워드로 선언해준다.
+
+// 계산 속성은 겉모습만 속성일뿐, 실제로 메서드이며, 실제 메모리 공간을 가지지 않고, 해당 속성에 접근했을 경우, 그와 연관된 다른 속성에 접근해서 값을 계산하고, 그 결과값을 리턴하거나, 세팅하는 메서드이다.
+
+// 계산속성의 set 파라미터 생략과 newValue
+
+class NewValue{
+    var a : Int = 0
+    var b : Int{
+        get{
+            return a+2 // b = a+2
+        }
+        set{ // 이처럼 set 블록의 파라미터를 생략하고, 스코프 안에서 해당 파라미터를 'newValue' 라는 미리 약속된 파라미터로 쓸 수 있음.
+            self.a = newValue - 2
+        }
+    }
+}
+
+// 예제 : 계산속성인 BMI 구현하기
+// BMI = Weight / Height*Height * 10000
+// 키가 변할수 없다 라는 전제조건 하에 get, set을 모두 가지는 bmi 구현
+
+class Person_2{
+    var height : Double = 160.0
+    var weight : Double = 60.0
+    var bmi : Double{
+        get{
+            let bmi = weight / height*height * 10000
+            return bmi
+        }
+        set{
+            self.weight = newValue * height*height / 10000
+        }
+    }
+}
+
+let p2 = Person_2()
+p2.bmi // get
+p2.bmi = 24
+
+p2.weight
+
+
+// 만약 get의 기능만 있는 read - only 계산속성의 경우, get 블럭 생략 가능
+
+class Person_3{
+    var height : Double = 160.0
+    var weight : Double = 60.0
+    var bmi : Double {
+            let bmi = weight / height*height * 10000
+            return bmi
+    }
+}
+
+
+
+// 타입 속성 (Type Property)
+// 타입 자체에 속해있는 속성 (-> 모든 인스턴스들이 같은 속성 값을 공유)
+// static 키워드를 사용해서 선언
+
+
+class Cat {
+    static var species = "Cat"
+    var name : String
+    var age : Int
+    init(name : String, age:Int){
+        self.name = name
+        self.age = age
+    }
+}
+
+let cat1 = Cat(name:"지우", age:4)
+Cat.species // 타입 속성은 이런식으로 인스턴스 명이 아닌, 타입 명을 사용해서 접근해주어야 한다.
+
+
+// 저장 속성과, 계산 속성 모두가 타입 속성이 될 수 있다.
+
+//1) 저장 타입속성
+
+class Circle {
+    static let pi : Double = 3.14
+    static var count : Int = 0
+    var radius : Double
+    var diameter : Double {
+        get{
+            return radius*2
+        }
+        set{
+            self.radius = newValue / 2
+        }
+    }
+    init(radius : Double){
+        self.radius = radius
+        Circle.count += 1 // 생성자가 실행될때마다 Circle.count가 1씩 증가한다 ~> 같은 타입의 인스턴스들을 전체적으로 관리하는 역할.
+    }
+}
+
+Circle.pi // -> 3.14
+
+let a = Circle.pi // 저장속성이므로, 다른 변수에 그 값 자체를 저장 가능
+
+Circle(radius: 3.0)
+Circle(radius: 4.0) // 이렇게 생성자 두번 호출했다고 할때.
+Circle.count // 2로 증가해있음.
+
+// 이처럼 클래스의 인스턴스들을 전체적으로 관리하거나, 공유 자원을 관리할때, 또는 모든 인스턴스들이 사용하는 동일한 값을 표현할때 저장타입속성을 사용하면 좋다!
+
+
+// 2) 계산 타입속성
+
+class Circle1 {
+    static let pi = 3.14
+    static var count = 0
+    var radius : Double
+    static var multiPi: Double { // 계산타입속성, 타입속성이 다른 같은 타입의 타입속성에 접근할때는 앞에 타입 명을 생략할수 있다.
+        return pi * 2
+    }
+   
+    init(radius : Double){
+        self.radius = radius
+        Circle1.count += 1 // 같은 타입속성이 아닌 경우에는, 타입속성에 접근할 때 반드시 맨 앞에 타입 명을 붙여줘야한다.
+    }
+}
+
+
+// 타입 속성 정리
+
+/*
+ - 클래스, 구조체, 열거형 모두에서 선언 가능하다.
+ - let, var 모두 선언 가능하다.
+ - 타입 이름으로만 접근 가능하고, 인스턴스 이름으로 접근할 수 없다.
+ 
+ <저장 타입 속성>
+ - 일반 저장속성 타입의 경우, 인스턴스를 생성할 때 생성자에서 모든 속성의 초기화를 완료한다.
+    그리고, 해당 저장 속성은, 각 인스턴스가 가지는 고유한 값이다.
+ - 하지만, 저장 타입속성의 경우, 생성자가 따로 없으며, 타입 자체에 속한 속성이기 때문에, 타입이 선언된 이후 값을 할당할 수 없다. 따라서 항상 기본값을 필요로 하고, 기본값을 생략 불가능하다.
+ - 지연속성의 특징을 가진다 ~ 저장타입속성은 속성에 처음으로 접근하는 순간 초기화 되기 때문에, 지연저장속성에 해당하지만, lazy로 선언할 필요는 없다.(참고 : 여러 스레드에서 동시에 엑세스 해도 한번만 초기화되도록 보장된다 (thread - safe))
+ */
+
+
+// 어떤 경우에 타입속성을 사용해야 할까?
+/*
+ 1) 해당 타입의 보편적인 속성을 만들고자 할때 -> 모든 인스턴스가 공유하는 성격에 가까운 속성
+ 
+ 2) 상속에서의 재정의(overriding)
+    - 저장 타입 속성 -> 상속에서, 하위 클래스의 재정의 불가능
+        저장 타입속성은, 한 타입의 고유의 틀이기 때문에 재정의 할 수 없다.
+    - 계산 타입 속성 -> 상속에서, 상위클래스의 키워드를 앞에 붙인 경우 재정의 가능
+        추후 상속에서 다시 공부 하겠지만, 상위 클래스의 계산타입 속성 선언시 static 키워드 대신 class 키워드를 사용하면 이 속성을
+        하위클래스에서 재정의 가능하다.
+ */
+
+
+
+
+// 속성 감시자 (Property Observer) -> 속성관찰자 라고 표현하기도 한다.
+// 저장 속성이 변하는 순간, 그 변화를 관찰하고 변화 시점에 실행되는 매서드
+class Profile {
+    var name: String = "이름"
+    
+    // 저장속성 + willSet 속성감시자
+    var statusMessage: String = "기본상태 메세지" {
+        willSet(message){
+            print("메세지가 \(statusMessage)에서 \(message)로 변경될 예정입니다.")
+            print("상태메세지 업데이트 준비")
+        }
+    }
+}
+
+let p = Profile()
+
+p.statusMessage = "행복해" // 원래의 상태메시지가 "기본 상태 메세지" 였는데, 새롭게 "행복해" 로 변경해줌 -> 속성감시자(will)이 실행됨.
+
+// 정리할때 교재 '속성' 부분 '시간의 흐름' 참고하기.
+// 속성 감시자에는 두개가 있다
+    // willSet 속성 감시자 : 메모리상의 변수에 저장된 값이 변경되기 '전'에 실행된다 -> 값이 바뀔 예정임을 감시한다.
+    // didSet 속성 감시자 : 메모리상의 변수에 저장된 값이 변경된 '후'에 실행된다 -> 값이 바뀌었다는 것을 감시한다.
+    // 주로 didSet을 많이 쓴다.
+
+class Profile2 {
+    var name: String = "이름"
+    // 저장속성 + willSet 속성감시자
+    var statusMessage: String {
+        // 맨 처음 값이 할당될때 실행되는것이 아니라, 새로운 값이 할당될 때 (즉 변화가 발생할 때) 전후로 실행되는것이 속성감시자임.
+        willSet(message){
+            print("메세지가 \(statusMessage)에서 \(message)로 변경될 예정입니다.")
+            print("상태메세지 업데이트 준비")
+        }
+        didSet(message){
+            print("메세지가 \(message)에서 \(statusMessage)로 변경 완료되었습니다.")
+            // '이전' 값이 didSet의 파라미터가 되는것임! -> 새로 바뀐 값은, 이미 'statusMessage'에 할당되었기 때문에, statusMessage가 새로운 값.
+        }
+    }
+    init(message: String){
+        self.statusMessage = message
+    }
+}
+
+let profile2 = Profile2(message: "기본상태메세지입니다~")
+profile2.statusMessage = "새 상태메세지 입니다~"
+
+// 속성 감시자의 파라미터를 생략하기 (oldValue, newValue 이용)
+
+class Profile3 {
+    var name: String = "이름"
+    // 저장속성 + willSet 속성감시자
+    var statusMessage: String {
+        willSet{
+            print("메세지가 \(statusMessage)에서 \(newValue)로 변경될 예정입니다.")
+        }
+        didSet{
+            print("메세지가 \(oldValue)에서 \(statusMessage)로 변경 완료되었습니다.")
+        }
+    }
+    init(message: String){
+        self.statusMessage = message
+    }
+}
+
+let profile3 = Profile3(message: "처음 메세지")
+profile3.statusMessage = "뉴뉴뉴메세지"
+
+
+//주의점
+/*
+ 속성 감시자를 추가 가능한 경우
+ 
+ -1) 저장 속성 (원래의 경우와 상속한 경우 둘다 가능)
+ -2) 계산 속성 (상속해서 재정의 하는 경우에만 가능) -> 단순 매서드 추가
+ 
+ - 계산속성의 경우, 속성 관찰자를 만드는 대신, 계산속성의 set 블록에서 값 변경을 관찰 가능하기 때문에
+ 재정의(상속)이 아닌, 본래의 계산 속성에는 추가할 수 없다. (본래의 계산속성의 set 블록이 속성관찰자와 유사한 역할을 한다)
+ - let(상수) 속성에는 당연히 추가될 수 없다 (값이 변할 가능성 자체가 없기 때문)
+ - 지연저장속성에는 추가할 수 없다.
+ 
+ */
+
+
+// (참고만)~ 속성감시자의 동작의 매커니즘 (애플이 내부적으로 속성 감시자를 구현했겠져?)
+
+var x = 0
+
+func willSetting(newValue: Int) {
+    print(newValue)
+}
+func didSetting(oldValue: Int) {
+    print(oldValue)
+}
+func setX(newX: Int) {
+    willSetting(newValue: newX)
+    x = newX
+    didSetting(oldValue: newX)
+}
+
+setX(newX: 2)
