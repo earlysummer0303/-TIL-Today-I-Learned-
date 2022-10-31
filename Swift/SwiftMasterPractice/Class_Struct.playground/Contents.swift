@@ -180,9 +180,9 @@ var frog = Employee(id: 2, name: "Frog", company: "Naver")
 // 옵셔널 타입의 속성을 초기화 해주지 않는다면 그 인스턴스 값은 nil 이다.
 
 class OptClass {
-    var name : String?
-    var age : Int
-    init(age:Int){
+    var name: String?
+    var age: Int
+    init(age: Int){
         self.age = age
     }
 }
@@ -194,9 +194,9 @@ newOptInstance.name // nil
 // 생성자 파라미터에 기본 값 주기
 
 class NewClass{
-    var name : String
-    var age : Int
-    init(name:String = "Jiwoo", age:Int ){ // 기본값을 파라미터 옆에 대입해준다.
+    var name: String
+    var age: Int
+    init(name: String = "Jiwoo", age: Int ){ // 기본값을 파라미터 옆에 대입해준다.
         self.name = name
         self.age = age
     }
@@ -252,7 +252,7 @@ struct Cosmetic {
     }
 }
 
-var cushionFoundation = Cosmetic(name : "Cushion", number: 5) // 인스턴스를 생성할때, 지연저장 속성의 메모리공간은 할당하지 않음
+var cushionFoundation = Cosmetic(name: "Cushion", number: 5) // 인스턴스를 생성할때, 지연저장 속성의 메모리공간은 할당하지 않음
 cushionFoundation.weight // 지연 저장 속성에 접근하면 비로소 지연저장속성의 메모리 공간이 할당되고, 데이터가 저장된다. (여기서는 기본값인 0.0로 초기화됨)
 
 
@@ -607,3 +607,247 @@ func setX(newX: Int) {
 }
 
 setX(newX: 2)
+
+
+// 메서드
+
+// 인스턴스 메서드
+/*
+ - 메서드이기 때문에 메모리공간이 할당되어있지 않음
+ - 메서드 접근시, 인스턴스 이름으로 접근해야함.
+ - 메서드 실행시, 스택프레임을 만들고, 인스턴스의 데이터를 사용. 메서드 종료시 스택프레임이 사라짐.
+ */
+// 클래스의 인스턴스 메서드
+class CCat {
+    var name: String
+    var age: Int
+    func changeName(newName: String){
+        self.name = newName
+    }
+    func printName(){
+        print(self.name)
+    }
+    init(name: String, age: Int){
+        self.name = name
+        self.age = age
+    }
+}
+
+var cat11 = CCat(name: "Cat1", age: 2)
+cat11.changeName(newName: "냐옹이")
+cat11.printName()
+
+// 구조체의 인스턴스 메서드
+
+// ⭐️ 값타입(구조체, 열거형)의 인스턴스 메서드 내에서 자신의 속성값 수정은 원칙적으로 불가능
+// 따라서, 자신의 속성 값을 수정하는 함수를 선얼할때는 mutating 키워드를 붙여줌
+// 이유 - 클래스는 heap 영역에 인스턴스를 저장, 구조체는 stack 영역에 인스턴스 저장, stack 영역에 저장되는 데이터는 함수로 변경할 수 없다.
+struct Rabbit {
+    var name: String
+    var age: Int
+    init(name: String, age: Int){
+        self.name = name
+        self.age = age
+    }
+    mutating func changeName(newName: String){
+        self.name = newName
+    }
+}
+
+var newRabbit = Rabbit(name: "Judy", age: 24)
+newRabbit.changeName(newName: "July")
+
+// 오버로딩 ~ 각 클래스 / 구조체 / 열거형 내의 메서드들의 오버로딩 지원
+
+class Legs {
+    var number : Int = 4
+    func printNumber(){
+        print(number)
+    }
+    func printNumber(_ newNum: Int){
+        print(newNum)
+        number = newNum
+    }
+}
+
+var newLeg = Legs()
+newLeg.number = 7
+newLeg.printNumber()
+newLeg.printNumber(4)
+
+
+// 타입매서드
+/*
+ 타입 자체의 성격에 가까운 매서드
+ */
+
+class Pig{
+    var name: String
+    var age: Int
+    static var species = "Pig"
+    init(name: String, age: Int){
+        self.name = name
+        self.age = age
+    }
+    static func remindMe(){
+        print("종은 항상 \(species) 입니다.")
+    }
+}
+
+Pig.remindMe()
+
+// 실제 타입 매서드 예시
+Int.random(in: 1...100)
+Double.random(in: 1.0...10.0)
+
+
+// 클래스 - 타입 메서드의 상속
+
+// 타입매서드를 상속할때, 재정의(overriding)가능하게 하려면 해당 매서드의 func 키워드 앞에 static 키워드가 아닌 class 키워드를 적어줘야한다.
+// 이때의 class 키워드는 '상속시 재정의 가능'의 의미
+
+
+
+// 서브스크립트 (Subscirpts)
+// 대괄호로 구현된, 특별한 형태의 매서드 호출 문법
+// -> 따라서 메서드를 직접 구현하는것도 가능하다.
+// ex) 배열에서 -> 대괄호 안에 인덱스 값을 넣으면, 해당 인덱스에 해당하는 배열 요소에 접근 가능.
+// 딕셔너리에서 => 대괄호 안에 키 값을 넣으면 해당 키값에 해당하는 딕셔너리의 밸류에 접근 가능
+
+
+var array = ["Jiwoo", "Jeongin", "Seohyeon"]
+array[0]
+array[1]
+
+// 이렇게 사용할 수 있는것은, 내부적으로 대괄호(서브스크립트)를 사용하면, 어떤 값을 리턴하도록 구현되어있어서 가능
+
+// 인스턴스 매서드로써의 서브스크립트 구현
+
+// 클래스 내에서 직접 서브스크립트를 구현하면, 인스턴스 생성시 인스턴스[서브스크립트의 파라미터]로 접근 가능.
+// 서브스크립트 선언시 func 대신 subscript 키워드 사용
+
+class SomeData {
+    var datas = ["Jiwoo", "Jeongin", "Seohyeon"]
+    
+    subscript(index: Int) -> String {
+        get{
+            return datas[index]
+        }
+        set{
+            datas[index] = newValue
+        }
+    }
+}
+
+var aData = SomeData()
+aData[0]
+aData[1] = "BlackBean"
+aData[1]
+
+struct Matrix {
+    var data = [["1","2","3"],["4","5","6"],["7","8","9"]]
+    subscript(row: Int, column: Int)->String?{
+        guard row < 3 || column < 3 else {
+            return nil
+        }
+        return data[row][column]
+    }
+}
+
+var mat = Matrix()
+mat[0,1]
+
+
+// 타입 서브스크립트
+
+enum Planet : Int {
+    case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune
+    static subscript(n: Int)-> Planet{
+        return Planet(rawValue: n)!
+    }
+}
+
+let venus = Planet[2] // Planet.venus 대신 사용할 수 있는 방법
+
+
+//참고) Int/String 등의 타입 이해
+
+// 이런 기본 타입들은 구조체로 구현되어있음
+
+/*
+ struct Int {
+    static func random(in range: Range<Int>)->Int{
+    ~~~~~~
+ }
+ */
+
+
+// 접근제어 (Access Control)
+
+// private 키워드 사용 -> 인스턴스 외부에서 이 속성에 접근할 수 없음
+// 외부에서 private로 선언된 속성 / 매서드에 접근 불가하므로, 코드 내부의 세부 구현 내용을 숨기는것이 가능하다
+// 접근제어가 필요한 경우
+/*
+ - 애플이 자신이 원하는 코드를 감추는데 사용했음
+ - 코드의 영역을 분리시켜, 효율적으로 관리 가능 (계층화)
+ - 컴파일 시간이 줄어들게 할 수 있다 (컴파일러가 해당)
+ */
+class SomeClass{
+    private var name = "이름"
+    
+    func nameChange(name: String){
+        self.name = name
+    }
+}
+
+var s = SomeClass()
+// s.name ->접근 불가
+s.nameChange(name: "지우")
+
+
+
+// 싱글톤패턴 (Singleton Pattern)
+// 메모리상에 유일하게 1개만 존재하는 객체를 설계하는 방식
+
+// 싱글톤 패턴이 왜 필요한가?
+
+/*
+ - 앱 구현시, 유일하게 단 한개만 존재하는 객체가 필요한 경우가 생기는데, 이럴때 싱글톤 패턴을 사용
+ - 즉 특정하고, 유일한 데이터 객체가 필요한 경우
+ - 이 객체는 한번 생성된 이후에는 앱이 종료될때까지 유일한 객체로 메모리에 상주한다.
+ */
+
+
+class Singletone {
+    static let shared = Singletone() // 자기 자신의 객체를 생성해 타입 변수에 할당. -> 참조타입이므로, 이 shared 변수는 Singletone 객체의 힙 영역 주소를 가짐.
+    var userInfoId = 12345
+}
+
+// 이렇게 싱글톤 패턴의 클래스를 선언하고,
+
+Singletone.shared // shared 속성 (shared 객체)에 접근하는 순간, lazy하게 동작해 메모리 영역에 올라감.
+
+let object = Singletone.shared
+object.userInfoId = 12346
+
+Singletone.shared.userInfoId // 12346로 값 변경(힙 영역에 있는 유일한 객체의 userInfoId 값이 변경되는것이다.)
+
+let newObject = Singletone.shared // Singletone.shared 객체를 가리키는 새로운 변수
+newObject.userInfoId // 12346
+
+
+// 싱글톤 패턴의 실제 사용 예시 (실제 프레임워크들에서 사용하는 싱글톤 패턴)
+
+let screen = UIScreen.main // 화면 관련
+let userDefaults = UserDefaults.standard // 유저 객체 관련
+let application = UIApplication.shared
+let fileManager = FileManager.default
+let notification = NotificationCenter.default
+
+
+// 싱글톤패턴 정리
+/*
+ - 클래스 내에서, static let 변수명 = 생성자() 로 생성, 즉 자기 자신을 초기화 해 static let 변수에 할당 (싱글톤 객체의 메모리 주소를 담고있는 변수, let이기 때문에 '메모리 주소' 값이 바뀔수 없다는 의미. )
+ - 한번 생성되면 앱이 종료될때까지, 단 한개의 객체가 같은 메모리 공간에 상주
+ - 만약 외부에서 또다른 새로운 해당 클래스 객체의 생성을 금지하고싶다면, 기본생성자를 private init 키워드로 선언.
+ */
