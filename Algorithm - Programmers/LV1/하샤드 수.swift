@@ -1,12 +1,15 @@
-import Foundation
-
-func solution(_ n:Int) -> Int {
-    var ans = 0
-    for i in 1...n-1 {
-        if n % i == 1{
-            ans = i
-            break
-        }
+func solution(_ x:Int) -> Bool { 
+    var input = x //12
+    var sum = 0
+    while input/10 != 0 { 
+        sum = sum + input % 10 
+        input = input / 10 
     }
-    return ans
+    sum = sum + input % 10 
+    if x % sum == 0 {
+        return true
+    }
+    else {
+        return false
+    }
 }
