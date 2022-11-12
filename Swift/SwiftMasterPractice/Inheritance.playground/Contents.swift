@@ -296,3 +296,9 @@ class Bicycle: Vehicle {
         }
     }
 }
+
+
+
+// 초기화(Initialization) 과정과 생성자
+
+
