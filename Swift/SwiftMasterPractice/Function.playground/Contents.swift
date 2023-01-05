@@ -362,7 +362,6 @@ case 6...8 :
 default :
     break
 }
-ㄴ
 
 //[3] continue
 // 반복문에서 사용
@@ -485,6 +484,7 @@ for i in 1...10{
     guard i%2 == 0 else { continue}
     print("\(i)는 2의배수입니다.")
 }
+
 /*=========================================
 <가드문의 이점 정리>
  1) 중첩되는 조건을 처리할때 발생하는 if문의 불편함을 해소하고, 가독성을 높인다.
@@ -506,11 +506,12 @@ for i in 1...10{
  */
 
 // 1) 예시
-/*
-@available(iOS 10.10) class Myclass {
+
+@available(iOS 13.10, *)
+class Myclass {
     // 코드
 }
-*/
+
 
 //2) 예시
 func doSomth(completion:@escaping()->()){

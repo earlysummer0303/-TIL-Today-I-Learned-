@@ -12,7 +12,7 @@ let comChoice = Int.random(in: 1...100)
 print("1~100 사이의 숫자를 골랐으니 맞춰보시지!")
 
 while true {
-    if let userChoice = readLine() {
+    if let userChoice = readLine() { // readLine 값이 있을 때
         if let userInt = Int(userChoice){ // 유저 인풋이 Int값으로 잘 변환이 되었으면
             if userInt > comChoice{
                 print("Down")
