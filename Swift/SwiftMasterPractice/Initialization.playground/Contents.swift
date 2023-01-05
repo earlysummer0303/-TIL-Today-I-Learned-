@@ -443,9 +443,160 @@ struct Animal {
 let cat = Animal(species: "cat") // Animal? 타입
 let dDog = Animal(species: "")   // Animal? 타입, nil
 
+
+//⭐️ 실패가능 생성자의 호출(위임) 규칙
+
 /*
  
  실패 불가능한 생성자는 다른 실패가능 생성자를 호출(=위임) 불가능하다!
  (Delegate Up, Delegate Across 모두 마찬가지)
  
+ */
+
+//Delegate Up 상황 (상속관계) 에서의 실패 가능 생성자 호출 예제
+
+class Bread {
+    var color: String
+    init?(color: String){ // 실패가능 생성자 구현
+        if color.isEmpty { // 에러처리
+            return nil
+        }
+        self.color = color
+    }
+}
+
+class ChocoBread: Bread {
+    var chocochips: Int
+    init?(color: String, chocochips: Int){ // 하위클래스의 '실패가능생성자' 가 상위 클래스의 '실패가능 생성자' 를 호출한 것이므로 올바른 코드.
+        if chocochips <= 0 { return nil} // 에러처리
+        self.chocochips = chocochips
+        super.init(color: color)
+    }
+}
+
+// 인스턴스를 생성하는 상황 예제
+
+//1. 상위클래스의 실패가능 생성자를 통한 인스턴스 생성 -> 에러조건을 만족할 경우 인스턴스 생성 실패
+
+if let bread = Bread(color: "") {
+    print("빵 생성 완료, 빵 색상 - \(bread.color)")
+}
+else {
+    print("빵 생성 불가 - 빵 색상 지정 안됨")
+}
+
+// 상위 클래스에서 상속받은 멤버가 nil일 경우 -> 인스턴스 생성 실패 (nil)
+
+if let chocobread = ChocoBread(color: "", chocochips: 5){
+    print("인스턴스 생성됨, 초코칩 개수는 \(chocobread.chocochips)개")
+}
+else {
+    print("빵 생성 불가 - 빵 색상 지정 안됨")
+}
+
+// 상위클래스의 실패가능 생성자, 하위클래스의 실패 가능 생성자 모두 예외조건이 아닐 경우 -> 하위클래스 인스턴스 생성 성공
+
+if let chocobread2 = ChocoBread(color: "yellow", chocochips: 5){
+    print("인스턴스 생성됨, 빵 색상은",chocobread2.color,"초코칩 개수는 \(chocobread2.chocochips)")
+}
+else {
+    print("빵 생성 실패")
+}
+
+//⭐️ 실패가능 생성자의 재정의 규칙
+
+/*
+ - 상위클래스의 실패가능 생성자를 하위클래스에서 실패 불가능 생성자로 재정의 가능 => 강제 언래핑 활용 가능
+ - ☑️ 상위의 실패 불가능 생성자를 하위클래스에서 실패 가능 생성자로 재정의하는것은 불가능.
+ */
+
+class Book {
+    var title: String
+    var quantity: Int
+    init(title: String, quantity: Int){
+        self.title = title
+        self.quantity = quantity
+    }
+    init?(title: String){
+        if title.isEmpty{
+            return nil
+        }
+        self.title = title
+        self.quantity = 1
+    }
+}
+
+// 상위클래스의 실패가능 생성자를 하위클래스 실패불가능 생성자로 재정의 => 가능
+class Note: Book {
+    var isStringNote = true
+    override init (title: String){ // 형태는 상위클래스의 실패가능 생성자와 동일하나, 내부에서는 상위클래스의 실패불가능 생성자를 호출하는 방식으로 실패 불가능 생성자로 재정의
+        super.init(title: title, quantity: 7)
+    }
+}
+
+var noteBook = Note(title: "지우의 노트")
+print(noteBook.title, noteBook.quantity, noteBook.isStringNote)
+
+// 상위클래스의 실패가능 생성자를 하위클래스 실패가능 생성자로 재정의시, 하위클래스 생성자에서 상위클래스 실패가능 생성자를 호출하는 경우 -> 강제 언래핑 사용 가능
+class Photobook: Book {
+    var year = 2022
+    override init(title: String){
+        super.init(title: title)!
+    }
+}
+
+
+// 상위클래스의 실패불가능 생성자를 하위클래스에서 실패 가능 생성자로 재정의하는것은 불가능
+/*
+class Diary: Book {
+    var isEternal = true
+    override init?(title: String, quantity: Int){ // 불가능 (Failable initializer cannot override a non-failable initializer)
+        ...
+    }
+}
+*/
+
+// ⭐️참고! 실패가능 생성자 (init?)는 init!와 거의 동일하다고 봐도 무방하다.
+
+/*
+ 그렇기 때문에,
+ init? => init! 위임 가능
+ init! => init? 위임 가능
+ 
+ init? => init! 재정의 가능
+ init! => init? 재정의 가능
+ 
+ */
+
+
+
+// 소멸자 (Deinitializer)
+// 메모리에 있던 인스턴스가 사라질 때 (메모리 해제 될 때) 호출되는 함수.
+/*
+ 소멸자는 인스턴스가 힙 메모리에서 해제되기 직전, 정리가 필요한 내용을 구현하는 메서드.
+ 소멸자는 클래스에만 존재하는 메소드로,클래스 정의시 클래스에는 최대 1개의 소멸자를 정의 가능 (⭐️한개 이상 정의 불가!!)
+ 소멸자는 파라미터(매개 변수)를 사용하지 않음 -> 따라서, 파라미터를 넣는 괄호 작성 x => deinit(){} 아니고, deinit{}
+ deinit 키워드를 사용해서 구현!
+ 
+ 소멸자(초기화 해제) 작동 방식 => ARC 부분에서 자세히
+ 
+ 소멸자는 직접 호출 할 수 없으며, 인스턴스가 메모리에서 제거되기 직전에 호출된다.
+ */
+
+class Aclass {
+    var x = 0
+    deinit {
+        print("인스턴스가 메모리에서 해제되었습니다.")
+    }
+}
+
+var acac: Aclass? = Aclass() // acac를 옵셔널로 선언
+acac = nil // acac에 nil 할당 = acac의 메모리 공간을 비움 => deinitializer 실행됨.
+
+
+// 소멸자의 상속
+/*
+ - 상위클래스의 소멸자는 해당 하위클래스에 상속됨.
+ - 상위클래스 소멸자는 하위클래스 소멸자의 구현이 끝날 때 자동 호출됨.
+ - 상위클래스 소멸자는 하위클래스가 자체적인 소멸자를 제공하지 않더라도 항상 호출됨.
  */
