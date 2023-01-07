@@ -124,3 +124,43 @@ newu2s.age // 업캐스팅은 항상 성공하며, 상위클래스 타입으로 
 
 // 타입과 다형성(Polymorphism)
 
+// 다형성 (Polymorphism) 이란?
+/*
+ - 하나의 객체(인스턴스가) 여러가지 타입의 형태로 표현 될 수 있음을 의미 (상속관계로 인해)
+ - 하나의 객체가 여러가지 타입의 형태로 저장 될 수 있음을 의미.
+ - 또는, 하나의 타입으로 여러 종류의 객체를 해석 할 수 있는 성격을 의미
+ 
+ - 다형성의 구현은 '클래스의 상속', '프로토콜' 등과 깊은 연관이 있음.
+ */
+
+class Plant {
+    var name: String = "식물 이름"
+    func thisIS(){
+        print("식물입니다.")
+    }
+}
+
+class Fruit: Plant {
+    var isSweet: Bool = true
+    override func thisIS() {
+        print("과일입니다.")
+    }
+}
+
+class Berry: Fruit {
+    var color: String = "Red"
+    override func thisIS() {
+        print("베리입니다.")
+    }
+}
+
+let plantList: [Plant] = [Plant(), Fruit(), Berry()]
+
+plantList[0].thisIS()
+plantList[1].thisIS() // 비록 Plant 타입으로 선언되었으나, Fruit 인스턴스의 매서드가 실행된다.
+plantList[2].thisIS()
+
+/*
+ 위의 사례처럼, 상속관계에서의 다형성은 매서드를 통해서 실행된다.
+ ⭐️ 하나의 인스턴스는, 업캐스팅 된 타입으로 인식되고, 호출되더라도 실제 인스턴스 형태(Undergraduate)에 따라 재정의된 메서드가 호출되고 실행된다.
+ */
