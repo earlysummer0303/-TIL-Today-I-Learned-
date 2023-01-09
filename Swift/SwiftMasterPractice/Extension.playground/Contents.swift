@@ -223,4 +223,31 @@ extension Rect {
     }
 }
 
-// 확장을 통한 서브스크립트의 구현 
+// 확장을 통한 서브스크립트의 구현
+
+// 예제 - Int 타입에 서브스크립트를 추가하여, 해당 정수의 n번째자리(0부터 시작)의 십진수를 반환하도록 만들기.
+
+extension Int {
+    func countNums()-> Int {// Int의 각 자리를 구성하는 숫자의 총 개수를 count 하는 함수.
+        var num = 0
+        var this = self
+        while(this != 0) {
+            this /= 10
+            num += 1
+        }
+        return num
+    }
+    subscript(num: Int) -> Int { // num은 해당정수(self)의 10^n승 자리의 수
+        var decimalBase = 1 // 시작하는 수는 1의 자리수 (10^0)
+        for _ in 0..<num { // 인덱스는 0부터 num-1까지.
+            decimalBase *= 10
+        }
+        return (self/decimalBase) % 10 // 만약 num이 숫자 개수 이상일 경우, 0 반환 (self.decimalBase가 소수형태가 되므로)
+    }
+}
+
+let num = 12345
+let numCount = num.countNums()
+for i in 0...numCount - 1 {
+    print(num[i])
+}
