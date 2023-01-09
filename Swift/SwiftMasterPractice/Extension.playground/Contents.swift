@@ -251,3 +251,59 @@ let numCount = num.countNums()
 for i in 0...numCount - 1 {
     print(num[i])
 }
+
+
+// 중첩타입 (Nested Type)의 확장
+// 중첩타입에 대해서는 나중에 자세히 공부, 일단 쉽게 이야기 하자면, 하나의 타입 내부에 다른 새로운 타입을 정의하는 것이 중첩타입.
+
+// 중첩타입의 예시
+
+class Day {
+    enum Weekday {
+        case mon
+        case tue
+        case wed
+    }
+    
+    var day: Weekday = .mon // 중첩타입으로 정의한 타입을 클래스 저장타입의 타입으로 설정 가능!
+}
+
+var ddd: Day.Weekday = Day.Weekday.mon // 중첩타입의 표현은 [해당 타입이 내부에 정의된 외부 타입].[해당 타입명] 으로 표현한다.
+
+
+// extension을 활용한 중첩타입의 추가
+
+extension Int {
+    enum Kind {
+        case negative, zero, positive
+    }
+    
+    var kind: Kind {
+        switch self {
+        case 0:
+            return Kind.zero
+        case let x where x < 0:
+            return Kind.negative
+        default:
+            return Kind.positive
+        }
+    }
+}
+
+8.kind
+(-1).kind
+
+func printIntegarKind(_ numbers: [Int]){
+    for num in numbers {
+        switch num.kind {
+        case Int.Kind.negative:
+            print("-",terminator: " ")
+        case Int.Kind.zero:
+            print("0",terminator: " ")
+        default:
+            print("+",terminator: " ")
+        }
+    }
+}
+
+printIntegarKind([1,-2,0,9,-6,8])
