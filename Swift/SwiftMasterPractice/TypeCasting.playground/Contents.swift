@@ -164,3 +164,98 @@ plantList[2].thisIS()
  위의 사례처럼, 상속관계에서의 다형성은 매서드를 통해서 실행된다.
  ⭐️ 하나의 인스턴스는, 업캐스팅 된 타입으로 인식되고, 호출되더라도 실제 인스턴스 형태(Undergraduate)에 따라 재정의된 메서드가 호출되고 실행된다.
  */
+
+
+// Any와 AnyObject를 위한 타입캐스팅
+
+/*
+ Swift 에서는, 불특정한 타입을 다룰 수 있는 타입을 제공함.
+ 
+ 1) Any 타입
+ - 기본 타입 (Int, String, Bool, ...)을 포함하여, 커스텀 클래스, 구조체, 열거형, 함수타입 등등 어떠한 타입의 인스턴스도 표현 가능한 타입 (옵셔널 타입도 포함한다.)
+ 
+ 2) AnyObject 타입
+ - 어떠한 '클래스' 타입 (객체, Object)의 인스턴스 도 표현 할 수 있는 타입.
+ */
+
+
+// 보통 변수를 묵시적으로 선언 할 경우에는, 선언 당시 할당된 값의 타입으로 해당 변수가 고정된다.
+
+var some1 = "Swift" // 묵시적 선언 => some1은 String 타입.
+//some1 = 2
+//some1 = 6.0 //String 타입이 아닌 값 할당 불가
+
+var some2: Any = "Swift"
+some2 = 2
+some2 = 3 // Any 타입으로 (명시적)선언 해준 변수에는 어떠한 타입의 값도 들어갈 수 있다.
+
+// Any타입 사용의 단점 -> 저장한 인스턴스의 메모리 구조를 알 수 없기 때문에, Any타입으로 선언된 변수의 값에 해당하는 타입의 고유한 기능을 (메소드, 속성 등) 사용할 수 없다.
+
+some2 = "Jiwoo"
+// some2.count  => 실행 불가, Any타입 변수이므로 String 값이 할당되어있다고 한들, String의 고유한 기능을 사용 불가.
+
+// 따라서, 필요할 경우, Any타입 인스턴스는 반드시 타입캐스팅 해서 사용해야한다.
+
+(some2 as! String).count // Any => String 타입캐스팅 할 경우 count 사용 가능해짐.
+
+
+// AnyObject 타입
+// -> 오로지 클래스의 인스턴스 만을 담을 수 있는 변수 (모든 종류의 클래스)
+
+class Cat {
+    var sound: String = "Nyang!"
+}
+
+class SuperCat {
+    var supersound: String = "Nyang! Nyang!"
+}
+
+var anyObjectList: [AnyObject] = [Cat(),SuperCat(),NSString()] // 어떠한 종류의 기본 구현된 클래스 + 커스텀 클래스 인스턴스던 할당 가능.
+
+// 객체 타입 고유의 기능을 사용할 때 타입캐스팅 필요
+
+(anyObjectList[0] as! Cat).sound
+
+
+
+//⭐️ 타입캐스팅의 분기처리
+
+let anyList: [Any] = [1, "냐하", 0.5, 100, "냥냥", NSString(),Cat()]
+
+// 배열의 enumerated() 함수 사용
+/*
+ enumerated 함수 => array 데이터를 입력받아, (index,item)으로 구성된 리스트를 반환하는 함수
+ */
+
+
+// 다음처럼 switch문에서 is/as 패턴을 활용해 타입의 분기처리가 가능하다.
+
+for (index, item) in anyList.enumerated(){
+    switch item {
+    case is Int: // item is Int
+        print("index -\(index), \(item)은/는 정수 형태입니다.")
+    case is Double: // item is Double
+        print("index -\(index), \(item)은/는 소수 형태입니다.")
+    case is String:
+        print("index -\(index), \(item)은/는 문자열 형태입니다.")
+    //타입캐스팅 분기처리
+    case let cat as Cat: // let cat = item as? Cat, 이때 case문의 경우 타입캐스팅 성공할 경우에만 아래의 지시문이 수행되기 때문에, as?가 아닌 as 키워드 사용.
+        print("index -\(index), \(item)은/는 Cat 형태입니다.")
+        print("고양이는 \(cat.sound) 하고 웁니다.")
+    default:
+        print("index -\(index), \(item)은/는 정수/소수/문자열이 아닙니다.")
+
+    }
+}
+
+//옵셔널 값의 Any 변환
+
+/*
+ 의도적인 옵셔널 값의 사용
+ - 의도적으로 옵셔널을 사용하려고 하는데, 컴파일러가 날려주는 경고창을 없애고 싶으면, 옵셔널을 Any로 타입캐스팅 하는 방법이 있다.
+ */
+
+let optionalInt : Int? = 3
+print(optionalInt) // Expression inplicitly coerced from Int? to Any 라는 경고창 뜬다.
+// 터미널창에 그 값을 입력하게 위해, optionalInt 가 Any타입으로 묵시적 형변환 된 케이스.
+print(optionalInt as Any) // 경고 알림 없음.
