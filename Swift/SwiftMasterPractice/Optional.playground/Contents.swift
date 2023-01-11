@@ -115,7 +115,7 @@ guardLetBind(opt2)
 // Coalesce ~ '더 큰 덩어리로 합치다' 라는 뜻
 // 옵셔널 표현식 뒤에 기본값을 제시해서, 옵셔널이 nil 값일 가능성을 없애는것 (즉 옵셔널 자체의 가능성을 없앰)
 
-var oneOpt :String? = nil
+var oneOpt: String? = nil
 
 var nilOpt = oneOpt ?? "내가디폴트다" // 이때, nilOpt의 경우, nil일 가능성이 전혀 없으면서도, 옵셔널형식으로 명시적 선언이 되어있지 않기 때문에 String 타입이다.
 
