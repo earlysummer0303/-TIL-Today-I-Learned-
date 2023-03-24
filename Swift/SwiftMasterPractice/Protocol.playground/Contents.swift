@@ -1,3 +1,5 @@
+
+import Foundation
 // 상속의 한계점 및 단점
 
 // 하나의 클래스는 한개의 클래스만 상속 할 수 있다 (오직 하나의 부모클래스, 다중상속 금지)
@@ -521,5 +523,58 @@ wishHappyBirthday(to: birthDayPerson)
 // -> 어트리뷰트 키워드 (@) 사용
 
 /* ------- 어트리뷰트 복습 ----------------
- Attribute 란 : 컴파일러에게
+ * Attribute 란 : 컴파일러에게 알려주는 특별한 신호로, 다음과 같은 추가적인 정보를 제공
+ - 1) 선언에 대한 추가 정보 제공
+ - 2) 타입에 대한 추가 정보 제공
+ 
+ * 사용 방법
+    - @어트리뷰트이름 ====> (예시) @available
+    - @어트리뷰트이름(아규먼트) ====> (예시) @available(iOS *)
+ 
+ * 어트리뷰트 키워드 예시 : @available, @objc @escaping, @IBOutlet, @IBAction 등
  */
+
+// (실제 예시)
+// -> 코드가 지나치게 길고 어수선해 보이지 않도록 대부분의 경우, 어트리뷰트 키워드를 적은 후 줄을 바꿔서 나머지 코드를 작성함.
+
+// 선언에 추가 정보를 제공하는 예시
+@available(iOS 10.0, macOS 10.12, *)
+class SomeType{ // 이 경우, "SomeType" 선언은 iOS 버전 10.0 이상에서만 읽을 수 있다.
+    
+}
+
+
+// @objc 키워드를 사용해서, 프로토콜의 선택적인 (구현 해도 되고, 안해도 되고) 멤버를 선언하기
+/*
+ @objc -> 스위프트로 작성한 코드를 objective-C 코드에서도 사용할 수 있게 해주는 어트리뷰트
+ - 프로토콜에서 요구사항 구현시 반드시 강제하는 멤버가 아니라 선택적인 요구사항으로 구현할 때 사용.
+ - 프로토콜 앞에는 '@objc' 추가.
+ - 선택적 구현으로 지정할 멤버 앞에는 @objc optional 추가
+ */
+
+@objc protocol RemoteController {
+    @objc optional var isOn: Bool {get} // 해당 프로퍼티를 구현하지 않는 타입의 인스턴스는 isOn이 nil
+    func turnOn()
+    func turnOff()
+    @objc optional func doNetflix()
+}
+/*
+ @objc 키워드를 사용할 때 주의점 ~~~~~~~~~~~~~~~~~~~~~~~~~
+ - objective-C는 구조체와 열거형에서 프로토콜의 채택을 지원하지 않음.
+ - 따라서 @objc 키워드를 사용하는 프로토콜은 class 에서만 채택이 가능하고, struct나 enum에서는 채택 불가능.
+ */
+
+class TelevisionRC: RemoteController {
+    var isOn = false // @objc optional이 붙은 멤버는 구현해도 되고 구현하지 않아도 됨.
+    func turnOn(){}
+    func turnOff(){}
+}
+
+let newTV: TelevisionRC = TelevisionRC()
+print(newTV.isOn)
+
+let newTV2: RemoteController = TelevisionRC() // RemoteController 타입으로 명시적 선언
+//=> 이때 RemoteController 타입은 선택적 구현을 지원하는 프로토콜 이므로, 이 타입의 인스턴스는 특정 멤버를 가지고 있지 않을 수도 있다.
+print(newTV2.isOn) // 프로퍼티인 선택적 구현사항의 경우, 해당 멤버가 없으면 nil을 반환한다.
+newTV2.doNetflix?() // 하지만 매서드인 선택적 구현사항의 경우, 해당 함수가 아예 없을 수도 있기 때문에 옵셔널 체이닝이 필요.
+
