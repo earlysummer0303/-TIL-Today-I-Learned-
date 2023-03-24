@@ -15,9 +15,10 @@
 // 프로토콜 만들기
 
 protocol SomeProtocol { // 매서드, 혹은 속성의 형태로 요구사항을 정의
-    var num: Int {get}
+    var num: Int {get} // let 저장속성에 대한 표현, get 키워드만 포함
     func doThis() // 함수 내부의 구현은 프로토콜 안에서 하지 않고, 함수를 표기만 해주며, 프로토콜을 채택한 타입 내에서 직접 구현한다.
 }
+
 
 // 단, 프로토콜의 확장 (extension)에서 구체적인 구현 내용의 정의도 가능하다.
 
@@ -123,23 +124,402 @@ class SmartPhone: RemoteMouse {
 
 class TabletPC: RemoteMouse {
     let id: String = "6754"
-    
     var name: String = "iPad"
-    
     class var type: String {
         get{
             return "태블릿용 리모콘"
         }
         set{ } // 클래스에서, 계산 타입 속성을 나타낼 때 static 대신 class 키워드도 사용 가능
-               // static 타입 속성은 상속은 가능하나, 재정의가 불가능 하지만, class 타입 속성은 실질적으로 매서드 이기 때문에, 하위클래스에서 재정의 가능.
+               // static 타입 속성은 상속은 가능하나, 재정의가 불가능 하지만, class 타입 속성은 실질적으로 매서드이기 때문에, 하위클래스에서 재정의 가능.
     }
     
     
 }
 
-// 1. 속성 요구사항 정의하기
+// 2. 메서드 요구사항 정의하기
 /*
- - ⭐️ var로 선언하며, let으로 선언 할 수 없음
-    - let 저장속성 요구사항을 선언하고 싶은 경우, 프로토콜 내에서 {get} 키워드를 이용해서 선언한다.
-    - 단, 실제로 프로토콜을 채택하는 타입에서의 구현은 let 키워드를 사용해서 한다.
+ - ⭐️ 메서드의 헤드 부분 (input, output)의 형태만을 요구사항으로 정의한다.
+ - mutating 키워드 : mutating 메서드를 필요로 하는 구조체가 해당 프로토콜을 채택 가능하도록 허락하는 키워드
+    - 참고) 구조체의 메서드가 저장속성을 변경하는 경우, mutating 키워드가 필요하다.
+    - 구조체와 마찬가지로, 열거형도 값 타입이기 때문에, case를 바꾸는 메서드 앞에 mutating 키워드 필요.
+ - static 키워드 : 타입 메서드로 제한하는 키워드
+    - 채택하는 타입 내에서 class 혹은 static 키워드를 사용해 구현한다.
+   
+ */
+
+// 1) 프로토콜 정의
+
+protocol RandomNumber {
+    static func reset() // static, output이 없는 함수
+    func random() -> Int // output이 있는 함수
+    mutating func doSth() // mutating 함수 // but, 클래스에서 쓰이면 mutating 키워드를 붙일 필요가 없음. (아예 mutating하는 함수로 사용할 필요도 없음.)
+}
+
+
+//2) 채택 및 구현 - class
+
+class Number: RandomNumber {
+    static func reset() {
+        print("reset")
+    }
+    
+    func random() -> Int {
+        return 0
+    }
+    
+    func doSth() {
+        print("doSth")
+    } // 클래스이기 때문에 mutating 키워드 필요 x
+    
+    
+}
+
+//2) 채택 및 구현 - struct
+
+struct SNumber: RandomNumber {
+    
+    var sNum: Int = 8
+    
+    static func reset() {
+        print("reset")
+    }
+    
+    func random() -> Int {
+        return 0
+    }
+    
+    mutating func doSth() {
+        sNum = 7
+    }
+    
+}
+
+// enum 타입의 프로토콜 채택
+
+protocol Togglable {
+    mutating func toggle()
+}
+
+enum OnOffSwitch: Togglable {
+    case on
+    case off
+    mutating func toggle(){
+        switch self {
+        case .on :
+            self = .off
+        case .off :
+            self = .on
+        }
+    }
+}
+
+var s = OnOffSwitch.on
+s.toggle()
+s
+
+
+// 3. 매서드 요구사항 - 생성자 요구사항
+// 참고) 실제로 프로젝트에서 프로토콜의 요구사항으로 생성자를 사용하는 경우는 드물다.
+/*
+ [생성자의 요구사항]
+ - 1. 클래스는 상속을 고려해야하기 때문에, 요구사항을 구현할 시 생성자 앞에 required를 붙여야 한다.
+    - 구조체의 경우, 상속이 필요 없기 때문에 required 키워드를 사용할 필요 없음.
+ - 2. final 클래스의 경우, 이후 상속되지 않기 때문에, required 키워드 사용할 필요 없음.
+ - 3. 클래스에서는 반드시 지정생성자로 구현할 필요가 없다. (편의생성자로 구현해도 상관 없다!)
+ */
+
+protocol Someprotocol {
+    init(num: Int) // 생성자 또한 프로토콜의 요구사항이 될 수 있음.
+}
+// 프로토콜의 요구사항은 '최소한의' 요구사항
+// 즉, 지정 생성자로 요구사항을 선언 했지만 -> 편의 생성자로 구현도 가능함.
+
+// 생성자 요구사항의 구현 1 - class
+
+class SomeClass: Someprotocol {
+    var num: Int
+    required init(num: Int){
+        self.num = num
+    }
+}
+
+// 참고) 하위클래스에서 생성자의 구현을 하지 않을 경우, 상위클래스의 필수 생성자가 자동상속된다.
+    // +) 만약 하위클래스에서 다른 생성자를 구현 했을 경우, 필수생성자 (상위클래스와 같은 형식의)도 반드시 구현해주어야 한다.
+
+class SomeChildClass: SomeClass {
+
+}
+
+var someChildClass = SomeClass(num: 7)
+
+final class AnotherClass: Someprotocol {
+    var num: Int
+    init(num: Int) { // final 클래스에서 생성자 요구사항을 구현할 때는, 이 클래스를 상속할 수 없으므로, required 키워드가 필요 없음.
+        self.num = num
+    }
+}
+
+// 만약 어떤 클래스가 프로토콜도 채택하고, 상속도 받는다고 할때, 프로토콜의 요구사항인 생성자와, 상위클래스의 생성자가 동일한 형태라면?
+
+protocol BProtocol {
+    init()
+}
+
+class BClass {
+    init(){
+        
+    }
+}
+
+// 프로토콜 채택과 상속을 동시에 하는 Class
+
+class CClass: BClass, BProtocol {
+    override required init(){
+        
+    }
+}
+
+// 실패 가능 생성자의 요구사항 선언 및 구현
+/*
+ 프로토콜 요구사항 선언시
+ - init?()로 선언 -> init!(), init?(), init() 모두 다 구현 가능
+ - init()로 선언 ( => 실패 가능성 배제) -> init() 로만 구현 가능
+ */
+
+protocol DProtocol {
+    init?()
+}
+
+class DClass: DProtocol {
+    required init(){
+        
+    }
+}
+
+// 4. 서브스크립트의 요구사항
+/*
+ - get, set 키워드를 통해 읽기 / 쓰기 여부를 설정. (최소한의 요구사항)
+ - get 키워드 ==> 최소한 읽기 서브스크립트 구현 / 읽기, 쓰기 모두 구현도 가능
+ - get/set 키워드 ==> 반드시 읽기, 쓰기 모두 구현해야한다.
+ */
+
+protocol DataList {
+    subscript(idx: Int) -> Int { get } // get 혹은 get set으로 구현
+}
+
+struct DataStructure: DataList {
+    subscript(idx: Int) -> Int {
+        get {
+            return 0
+        }
+        set {
+            
+        }
+    }
+}
+
+// 관습적으로 사용하는 프로토콜의 채택과 구현
+
+protocol NewProtocol {
+    func doSth()
+}
+
+class NewClass {
+    
+}
+
+extension NewClass: NewProtocol {
+    func doSth() {
+        print("hehehe")
+    }
+}// 깔끔한 코드를 위해, 주로 관습적으로 extension을 사용해 프로토콜을 채택 및 구현하는 것을 권장.
+
+// 타입으로서의 프로토콜
+
+// 프로토콜은 일급 객체 (First Class Citizen)이기 때문에, 타입으로 사용할 수 있다.
+// 그렇기 때문에
+/*
+ - 프로토콜을 변수에 할당 할 수 있다.
+ - 함수를 호출할때, 프로토콜을 파라미터로 전달할 수 있다.
+ - 함수에서 프로토콜을 반환할 수 있다.
+ */
+
+// 명시적으로 프로토콜 타입으로 선언하는 예시
+
+protocol Remote {
+    func turnOn()
+    func turnOff()
+}
+
+class Television: Remote {
+    func turnOn() {
+        print("TV켜")
+    }
+    
+    func turnOff() {
+        print("TV꺼")
+    }
+    
+}
+
+struct SetTopBox: Remote {
+    func turnOn() {
+        print("셋톱박스 켜")
+    }
+    
+    func turnOff() {
+        print("셋톱박스 꺼")
+    }
+    
+    func netflix() {
+        print("넷플릭스 켜")
+    }
+}
+
+let tv: Remote = Television() // 프로토콜을 채택한 타입의 인스턴스를 프로토콜 타입으로 명시적 선언 해줄 수 있음.
+tv.turnOff()
+tv.turnOn()
+
+let sbox: Remote = SetTopBox()
+sbox.turnOn()
+sbox.turnOff() // 하지만 프로토콜 타입으로 선언하면, 프로토콜의 요구조건에 해당하는 멤버에만 접근 가능하다.
+//sbox.netflix()
+
+(sbox as! SetTopBox).netflix() // 강제 타입캐스팅 하면 비로소 원래 타입의 멤버 접근 가능.
+
+
+// 그렇다면 프로토콜 타입 취급의 장점은?
+
+// 1. 같은 프로토콜을 채택하는 인스턴스끼리 배열로 묶을 수 있음
+
+let remotes: [Remote] = [tv,sbox]
+
+//1. 같은 프로토콜을 채택하는 인스턴스를 아규먼트로 사용 가능
+
+func useRemote(remote: Remote){
+    remote.turnOn()
+    remote.turnOff()
+    guard let sbox = remote as? SetTopBox else {
+        return
+    }
+    sbox.netflix()
+}
+
+useRemote(remote: tv)
+useRemote(remote: sbox)
+
+
+// 프로토콜의 준수성 확인 (with is / as 키워드)
+
+// 1) is 연산자 - 타입 체크 연산자
+
+// 특정 인스턴스가 프로토콜을 채택하고 있는지 확인
+
+tv is Remote
+sbox is Remote
+
+// 프로토콜 타입으로 저장된 인스턴스가 특정 타입인지 확인
+
+remotes[0] is Remote
+remotes[1] is Remote
+
+// 2) as 연산자 - 타입 체크 연산자
+
+// 업캐스팅 (항상 가능)
+let upcastedTV = tv as Remote
+
+// 다운캐스팅
+let sbox2: SetTopBox? = remotes[1] as? SetTopBox
+sbox2?.netflix() // 다운캐스팅 성공.
+
+
+// 프로토콜의 상속
+/*
+ 프로토콜끼리도 서로 상속 관계에 놓일 수 있다.
+ 실제로 코딩을 할 때 잘 활용되는 기능은 아니지만, 애플이 만들어 둔 체계에서는 많이 쓰이고 있다.
+ 
+ - 프로토콜은 '다중 상속' 이 가능하다. => 프로토콜은 그저 여러가지 요구사항의 나열일 뿐이기 때문.
+ */
+
+
+// -> 프로토콜의 다중 상속 예시
+
+protocol RRemote {
+    func turnOn()
+    func turnOff()
+}
+
+protocol AirCon {
+    func cool()
+    func hot()
+}
+
+protocol AirConRemote: RRemote, AirCon { // 프로토콜끼리의 다중상속 구조를 만드는것이 가능함.
+    // func turnOn()
+    // func turnOff()
+    // func cool()
+    // func hot()
+    func airconMode()
+}
+
+
+// 프로토콜을 Class 전용으로 만드려면? -> AnyObject 프로토콜을 상속하는 프로토콜 만들기.
+
+protocol OneProtocol: AnyObject {
+    func onePro()
+}
+
+// AnyObject 라는 프로토콜을 상속하는 프로토콜은 클래스에서만 채택할 수 있기 때문에, Struct에서는 상속 불가.
+
+/*
+ struct Struu: OneProtocol {
+ 
+ } // => 에러
+ */
+
+class OneClass: OneProtocol {
+    func onePro() {
+        print("onePro onePro")
+    }
+}
+
+/*
+ AnyObject => 어떤 클래스 타입의 인스턴스도 표현 할 수 있는 타입으로, 프로토콜로 형태로 정의된 타입.
+ - Any / AnyObjcet 등의 타입은 범용적 타입.
+ - AnyObjcet가 프로토콜로 구현되어있기 때문에 범용성을 가질 수 있는 것이고, 다운캐스팅 (as? / as!) 해서 구체적인 실제 타입으로
+    사용 가능했던 것임.
+ */
+
+// 프로토콜의 합성
+// -> & (앰퍼센트) 기호를 활용해서 두개의 프로토콜을 모두 채택하는 타입을 표현 할 수 있다.
+
+protocol Named {
+    var name: String {get} // let, var 키워드로 모두 구현 가능
+}
+
+protocol Aged {
+    var age: Int {get} // let, var 키워드로 모두 구현 가능
+}
+
+struct Person: Named, Aged {
+    var name: String
+    var age: Int
+}
+
+// 두개의 프로토콜 Named와 Aged를 모두 채택하는 타입의 경우, 당연히 name과 age 속성을 가지고 있다.
+// Aged & Named : Aged 프로토콜과 Named 프로토콜을 모두 채택하는 모든 타입을 의미
+
+func wishHappyBirthday (to celebrator: Aged & Named) { // 이때 Aged & Named는 임시적 타입으로 인식.
+    print("축하해 \(celebrator.name)야, 이제 \(celebrator.age)살이 되었구나!")
+}
+
+let birthDayPerson = Person(name:"지우", age: 25)
+wishHappyBirthday(to: birthDayPerson)
+
+// 프로토콜의 선택적 요구사항 구현
+// -> 프로토콜의 특정 요구사항만 구현해도 되게끔 하는 것.
+// -> 어트리뷰트 키워드 (@) 사용
+
+/* ------- 어트리뷰트 복습 ----------------
+ Attribute 란 : 컴파일러에게
  */
