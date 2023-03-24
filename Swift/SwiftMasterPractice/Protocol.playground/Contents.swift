@@ -578,3 +578,77 @@ let newTV2: RemoteController = TelevisionRC() // RemoteController 타입으로 �
 print(newTV2.isOn) // 프로퍼티인 선택적 구현사항의 경우, 해당 멤버가 없으면 nil을 반환한다.
 newTV2.doNetflix?() // 하지만 매서드인 선택적 구현사항의 경우, 해당 함수가 아예 없을 수도 있기 때문에 옵셔널 체이닝이 필요.
 
+
+
+// 프로토콜의 확장
+
+// 하나의 프로토콜을 다양한 타입에서 채택 후 전부 구현해야 한다는 귀찮음이 존재.
+
+protocol Food {
+    func steam()
+    func roast()
+}
+
+struct Pork: Food {
+    func steam() {
+        print("돼지고기 찌기")
+    }
+    func roast() {
+        print("돼지고기 굽기")
+    }
+}
+
+struct Beef: Food {
+    func steam() {
+        print("소고기 찌기")
+    }
+    func roast() {
+        print("소고기 굽기")
+    }
+}
+
+// 이러한 불편함을 해결하기 위해 프로토콜의 확장 제공
+
+// 프로토콜의 확장이란? ==> 🌟기본 (디폴트) 구현 내용을 제공하는것.
+/*
+ "프로토콜이 확장은, 코드의 중복 구현을 피하기 위해 존재한다."
+ 프로토콜을 채택한 모든 타입들에서 실제 구현을 계속적으로 반복해야하는 불편함을 덜기 위해
+ '프로토콜의 확장'을 제공해서 메서드의 디폴트 구현을 제공함.
+ */
+
+extension Food { // Food 프로토콜 채택시, 디폴트 구현 내용 제공.
+    func steam(){
+        print("고기 찌기")
+    }
+    func roast(){
+        print("고기 굽기")
+    } // 실제 Food 프로토콜의 요구사항은 steam(), roast() 두개 뿐이었음.
+    func boil(){
+        print("고기 삶기") // extension을 통해 새롭게 추가된 함수의 구현
+    }
+    
+}
+
+
+struct Chicken: Food {
+    func steam() {
+        print("닭고기 찌기")
+    }
+}
+
+let chicken = Chicken()
+chicken.steam() // 닭고기 찌기, 프로토콜 채택한 타입에서 직접 구현한 멤버의 인스턴스는 직접 구현한 대로의 함수를 가짐.
+chicken.roast() // 고기 굽기, 직접 구현하지 않은 멤버의 경우, 기본값인 extension의 함수를 가짐.
+
+let friedChicken: Food = Chicken()
+friedChicken.boil()
+
+// 이론적인 이야기
+/*
+ - 프로토콜은 선언시, 요구사항인 메서드에 대해서 메모리의 Data 영역에 목격자 테이블 (Witness Table)을 생성한다. -> 일종의 메서드 테이블, 클래스의 Virtual Table과 유사.
+ - 이때 반드시 요구사항인 메서드에 대해서만 목격자 테이블을 생성 (extension을 통해 추가되거나 한 메서드 등은 Withness Table 생성 x)
+ => 이 부분에 대해서는 교재 참조.
+ */
+
+
+// 프로토콜의 확장을 통한 다형성 제공 - 프로토콜 지향 프로그래밍
