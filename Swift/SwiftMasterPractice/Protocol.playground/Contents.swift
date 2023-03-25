@@ -652,3 +652,46 @@ friedChicken.boil()
 
 
 // 프로토콜의 확장을 통한 다형성 제공 - 프로토콜 지향 프로그래밍
+
+
+
+// 프로토콜의 적용 제한
+/*
+ 프로토콜의 확장에서 where절을 통해 프로토콜의 확장의 적용을 제한 할 수 있다.
+ - 특정 프로토콜을 채택한 타입에만 프로토콜 확장이 적용되도록 제한
+    where Self: 특정프로토콜
+ - 이 구문이 적용될 경우 특정 프로토콜을 채택하지 않으면 확장이 적용되지 않기 때문에
+    확장이 없는 것과 동일하게 메서드를 직접 구현해야한다.
+ */
+
+// (대문자로 시작하는 Self) => 타입 자신을 의미
+// self : 인스턴스 자신을 지칭 <=> Self : 타입 자신을 지칭
+
+
+protocol JuniorLearner {
+    func speakName()
+}
+
+protocol SeniorLearner {
+    func doMentoring()
+}
+
+extension JuniorLearner where Self: SeniorLearner { // SeniorLearner도 채택하는 타입에만 본 확장이 적용됨.
+    func speakName(){ // where, Self 키워드 사용.
+        "작년엔주니어 올해는 시니어"
+    }
+}
+
+class Ian: JuniorLearner, SeniorLearner {
+    // JuniorLearner와 SeniorLearner를 모두 채택하므로 위의 extension 적용 가능
+    func doMentoring() {
+        "멘토링을 합니다."
+    }
+}
+/*
+class Swimmer: JuniorLearner {
+    
+}
+ -> 이 클래스는 JuniorLearner를 채택하지만, SeniorLearner는 채택하지 않기 때문에 위의 확장이 적용되지 않음.
+ -> 따라서 이처럼 class 내부에서 요구사항을 구현하지 않을 경우 에러.
+*/
